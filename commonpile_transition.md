@@ -1,7 +1,7 @@
 # Design Document: Transition to Common Pile for Puddin Pipeline
 
 **Author**: Tanya Paul (tp389)
-**Last updated**: 07/27/2025 
+**Last updated**: 08/01/2025 
 **Advisor**: Prof. Mats Rooth  
 
 ---
@@ -38,52 +38,55 @@ The Puddin pipeline has been used to preprocess and parse large-scale corpora fr
 | `pubmed_filtered`            | 4.77M                 |
 | `stackexchange_filtered`     | 27.5M                 |
 | `project_gutenberg_filtered	`| 57.1K (for debugging) |
-Other considerations:
-- `github_archive_filtered`
-- `wikimedia_filtered` or `wikiteam_filtered`
+Other considerations:          | `github_archive_filtered`, `wikimedia_filtered` or `wikiteam_filtered` |
 
 
 
 ---
 
-## Proposed Directory Structure
+## Proposed Directory Structure (Final)
 Mirroring Andrea’s puddin layout, the new directory structure will be:  
 ```
 commonpile/  
-├── conll/                      # Store final parsed conllu outputs   
+├── conll/                               # Store final parsed conllu outputs   
 │  
-├── data/                       # Main data directory (formerly pile_tables + pile_exclusions)  
+├── data/                                # Main data directory (formerly pile_tables)
 │   ├── pile_tables/  
 │   │   ├── raw/  
 │   │   ├── slices/  
 │   │   └── tmp/  
 │   └── pile_exclusions/  
 │  
-├── logs/                       # Slurm and validation logs  
-│   ├── YYYY-MM-DD/             # Keep dated folders for job runs  
+├── logs/                                # Slurm and validation logs  
+│   ├── YYYY-MM-DD/                      # Keep dated folders for job runs  
 │   └── validation_success/  
 │       └── by_cpu/  
 │
-├── script/                     # Python scripts  
+├── script/                              # Python scripts  
+|   ├── sample_scripts/                  # Scripts for testing small-scale parsing & slicing
+        ├── parse_commonpile_sample.py   # First third of original pipeline - raw -> parsed JSONL
+│   │   ├── jsonl_to_conll.py            # Second third of original pipeline - parsed JSONL -> CoNLL-U Format
+│   │   └── validate_conll.py/           # Final third of original pipeline - stats + validation on .conll
+|   ├── sample_outputs/                  # Folder for sample_scripts outputs  
 │   ├── confirm_doc_ids.py  
-│   ├── parse_pile.py  
+│   ├── parse_commonpile.py              # Final pipeline
 │   └── ...  
 │  
-├── slurm/                      # All SLURM job scripts  
+├── slurm/                               # All SLURM job scripts  
 │   ├── public_slurm.sh  
 │   └── ...  
 │  
-├── info/                       # Meta files  
+├── info/                                # Meta files  
 │   ├── completed-puddin_meta-index.pkl  
 │   └── completed-puddin_meta-index.csv  
 │  
-├── puddin_env.yml              # Conda environment file  
+├── commonpile_env.yml                   # Conda environment file  
 │  
-├── requirements.txt            # Python dependencies  
+├── requirements.txt                     # Python dependencies  
 │  
-├── commonpile_transition.md    # Design doc  
+├── commonpile_transition.md             # Design doc  
 │  
-└── README.md                   # Project structure and usage
+└── README.md                            # Project structure and usage
 ```
 
 
@@ -94,12 +97,12 @@ commonpile/
 | Stage            | Description |
 |------------------|-------------|
 | Dataset Download | Load specific subset from Hugging Face |
-| Filtering        | Optional pre-cleaning |
+| Filtering        | Pre-cleaning |
 | Preprocessing    | Sentence splitting, cleaning |
 | Slicing          | Divide into smaller chunks |
 | Conllu Parsing   | Convert to `.conll` format |
 | Metadata         | Add info for later lookup |
-| Validation       | Ensure all slices are accounted for |
+| Validation       | Ensure all slices accounted for |
 
 ---
 

@@ -1,0 +1,19 @@
+name: commonpile
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.10
+  - ipykernel
+  - ipython
+  - pandas
+  - jupyter
+  - stanza
+  - pip
+  - pip:
+      - datasets
+      - jsonlines
+      - tqdm
+      - pyarrow
+      - fsspec
+prefix: ~/anaconda3/envs/commonpile
