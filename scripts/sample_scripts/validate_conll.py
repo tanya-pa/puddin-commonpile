@@ -1,3 +1,8 @@
+"""
+validate_conll.py:
+- step 3 of pipeline: validation and statistics of results
+"""
+
 from collections import Counter
 
 conll_path = "../../conll/arxiv_parsed.conll"

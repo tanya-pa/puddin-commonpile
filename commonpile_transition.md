@@ -64,25 +64,27 @@ commonpile/
 │
 ├── script/                              # Python scripts  
 |   ├── sample_scripts/                  # Scripts for testing small-scale parsing & slicing
-        ├── parse_commonpile_sample.py   # First third of original pipeline - raw -> parsed JSONL
-│   │   ├── jsonl_to_conll.py            # Second third of original pipeline - parsed JSONL -> CoNLL-U Format
-│   │   └── validate_conll.py/           # Final third of original pipeline - stats + validation on .conll
+|       ├── load_commonpile.py           # Initial stage - Load common pile subset & save as .pkl.gz
+|       ├── parse_to_json.py             # 1st third of original pipeline - raw -> parsed JSONL
+│       ├── jsonl_to_conll.py            # 2nd third of original pipeline - parsed JSONL -> CoNLL-U   
+│       ├── validate_conll.py/           # Last third of original pipeline - stats/val on .conll
+|       └── parse_commonpile_sample.py/  # Combination of 
 |   ├── sample_outputs/                  # Folder for sample_scripts outputs  
 │   ├── confirm_doc_ids.py  
 │   ├── parse_commonpile.py              # Final pipeline
 │   └── ...  
 │  
-├── slurm/                               # All SLURM job scripts  
+├── slurm/                               # TBA: All SLURM job scripts  
 │   ├── public_slurm.sh  
 │   └── ...  
 │  
-├── info/                                # Meta files  
+├── info/                                # TBA: Meta files  
 │   ├── completed-puddin_meta-index.pkl  
 │   └── completed-puddin_meta-index.csv  
 │  
 ├── commonpile_env.yml                   # Conda environment file  
 │  
-├── requirements.txt                     # Python dependencies  
+├── requirements.txt                     # TBA: ython dependencies  
 │  
 ├── commonpile_transition.md             # Design doc  
 │  

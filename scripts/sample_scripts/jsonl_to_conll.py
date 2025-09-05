@@ -1,3 +1,8 @@
+"""
+jsonl_to_conll.py:
+- step 2 of pipeline: jsonl to conll conversion 
+"""
+
 import os
 import json
 import stanza
